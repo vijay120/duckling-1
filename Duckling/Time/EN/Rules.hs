@@ -1276,6 +1276,21 @@ ruleIntervalTODBetween = Rule
       _ -> Nothing
   }
 
+-- Example code for making something latent
+--ruleIntervalBy :: Rule
+--ruleIntervalBy = Rule
+--  { name = "by <time>"
+--  , pattern =
+--    [ regex "by"
+--    , dimension Time
+--    ]
+--  , prod = \tokens -> case tokens of
+--      (_:Token Time td:_) -> case interval TTime.Open now td of
+--                              Just n -> tt . mkLatent $ n
+--                              Nothing -> Nothing
+--      _ -> Nothing
+--  }
+
 ruleIntervalBy :: Rule
 ruleIntervalBy = Rule
   { name = "by <time>"

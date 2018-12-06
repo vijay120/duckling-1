@@ -60,8 +60,9 @@ rank
 rank classifiers targets tokens =
   Set.toList . Set.fromList
   . map (\(Candidate token _ _) -> token)
-  . winners
   $ map makeCandidate tokens
+--  . winners
+--  $ map makeCandidate tokens
   where
     makeCandidate :: ResolvedToken -> Candidate
     makeCandidate token@Resolved {node = n@Node {token = Token d _}} =
