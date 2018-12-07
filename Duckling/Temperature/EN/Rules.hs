@@ -24,6 +24,34 @@ import Duckling.Temperature.Types (TemperatureData(..), unitsAreCompatible)
 import Duckling.Types
 import qualified Duckling.Temperature.Types as TTemperature
 
+
+ruleNumeralTo :: Rule
+ruleNumeralTo = Rule
+  { name = "at|to|by|to|over|under <temp>"
+  , pattern =
+    [
+      regex "from|to|by|over|under",
+      Predicate $ isValueOnly True
+    ]
+  , prod = \case
+      (_:Token Temperature td:_) -> Just . Token Temperature $
+        withUnit TTemperature.Degree td
+      _ -> Nothing
+  }
+
+ruleTemperatureDegreesTest :: Rule
+ruleTemperatureDegreesTest = Rule
+  { name = "<latent temp>"
+  , pattern =
+    [ Predicate $ isValueOnly False
+    ]
+  , prod = \case
+      (Token Temperature td:_) -> Just . Token Temperature $
+        withUnit TTemperature.Degree td
+      _ -> Nothing
+  }
+
+
 ruleTemperatureDegrees :: Rule
 ruleTemperatureDegrees = Rule
   { name = "<latent temp> degrees"
@@ -159,4 +187,6 @@ rules =
   , ruleIntervalDash
   , ruleIntervalMin
   , ruleIntervalMax
+  , ruleNumeralTo
+  , ruleTemperatureDegreesTest
   ]
