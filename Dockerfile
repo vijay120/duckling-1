@@ -4,7 +4,7 @@ RUN git clone https://github.com/vijay120/duckling-1.git
 
 RUN mkdir /log
 
-WORKDIR /duckling
+WORKDIR /duckling-1
 
 RUN apt-get update
 
